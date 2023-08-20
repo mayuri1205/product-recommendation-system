@@ -167,13 +167,7 @@ def update_preferences():
     db.session.commit()
     return redirect(url_for('profile'))  # Or wherever you want to redirect
 
-
-
-# def base():
-#     return render_template('base.html')
-
-
-
+ 
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -264,50 +258,8 @@ def home():
                 rating = list(popular_df['avg_Ratings'].values)
                 )
 
-# @app.route('/recommend')
-# def recommend_ui():
-#     interactions = Interaction.query.filter_by(user_id=current_user.id).all()
-#     recommended_books = generate_live_recommendations(interactions, current_user.preferred_genres)
-#     return render_template('recommendations.html', recommended_books=recommended_books)
-   
-
-# @app.route('/recommend_books',methods=['post'])
-# def recommend():
-#     user_input = request.form.get('user_input')
-#     index = np.where(pt.index == user_input)[0][0]
-#     similar_items = sorted(list(enumerate(similarity_scores[index])), key=lambda x: x[1], reverse=True)[1:5]
-
-#     data = []
-#     for i in similar_items:
-#         item = []
-#         temp_df = books[books['Book-Title'] == pt.index[i[0]]]
-#         item.extend(list(temp_df.drop_duplicates('Book-Title')['Book-Title'].values))
-#         item.extend(list(temp_df.drop_duplicates('Book-Title')['Book-Author'].values))
-#         item.extend(list(temp_df.drop_duplicates('Book-Title')['Image-URL-M'].values))
-
-#         data.append(item)
-
-#     print(data)
-
-#     return render_template('recommendations.html',data=data)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
+ 
 
 
 @app.route('/recommend', methods=['GET', 'POST'])
@@ -358,17 +310,7 @@ def recommend():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 migrate = Migrate(app, db)
 if __name__ == '__main__':
@@ -386,4 +328,4 @@ if __name__ == '__main__':
     else:
         with app.app_context():
             db.create_all()  # Create database tables
-            app.run(debug=True)
+            app.run(debug=False, host='0.0.0.0')
