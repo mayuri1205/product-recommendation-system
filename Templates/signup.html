@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="Templates\login.css">
+  <title>NovelNest Login</title>
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #4e4e4d, #f2f2f2);
+    padding-bottom: 15%;
+    
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    /* padding-bottom: 100px; */
+  }
+  
+  .login-form {
+    background-color: rgba(255, 255, 255, 0.8); /* Adding slight transparency to the form background */
+    padding: 40px;
+    margin-top: 5%;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+    
+    .login-form h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    
+    .login-form input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    
+    .login-form button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .login-form button:hover {
+      background-color: #0056b3;
+    }
+    
+    .signup-link {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    
+    .signup-link a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+    
+  </style>
+</head>
+<body>
+  <h1 style="font-size: 50px; text-align: center; color:aliceblue; margin-top: 10%;">Welcome to NovelNest!</h1>
+  <h2 style="text-align: center; color:aliceblue;margin-top: -1%;">Your Ultimate Book Recommender!</h2>
+  <div class="container">
+    <form method="post" class="login-form">
+      <input type="text" id="username" name="username"  placeholder="Username" required>
+      <input type="password" id="password" name="password"  placeholder="Password" required>
+      <button type="submit">Sign Up</button>
+      <p class="signup-link">Already have an account? <a href="/">Login</a></p>
+    </form>
+  </div>
+</body>
+</html>

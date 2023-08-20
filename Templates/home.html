@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NovelNest</title>
+  <!-- Include Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Include Custom CSS -->
+  <link rel="stylesheet" href="static\home.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Custom styling for the navbar */
+.navbar-custom {
+    background-color: #292b2c; /* Dark background color */
+  }
+  
+  .navbar-brand {
+    font-size: 24px;
+    color: #fff; /* White color */
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .navbar-brand:hover {
+    color: #f39c12; /* Orange color on hover */
+  }
+  
+  .nav-link {
+    color: #fff;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .nav-link:hover {
+    color: #f39c12; /* Orange color on hover */
+  }
+
+  .card-img-top {
+    height: 200px; /* Adjust this value to your desired image height */
+    object-fit: cover;
+  }
+
+ /* styles.css */
+
+/* Style the custom checkbox */
+.custom-checkbox-label {
+    position: relative;
+    padding-left: 30px; /* Adjust spacing based on your design */
+    margin-bottom: 0; /* Remove margin-bottom for better alignment */
+    font-family: Arial, sans-serif; /* Change font family if needed */
+    cursor: pointer;
+  }
+  
+  .form-check-input {
+    position: absolute;
+    opacity: 0;
+  }
+  
+  .custom-checkbox-label:before {
+    content: "\f0c8"; /* Unicode for checkbox icon */
+    font-family: "Font Awesome 6 Free"; /* Font Awesome 6 icon font */
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px; /* Adjust size as needed */
+    height: 20px; /* Adjust size as needed */
+    border: 2px solid #ccc; /* Border color */
+    border-radius: 4px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 14px; /* Icon size */
+    color: #ccc; /* Icon color */
+    transition: all 0.3s ease-in-out; /* Add transition for animation */
+  }
+  
+  .form-check-input:checked + .custom-checkbox-label:before {
+    content: "\f14a"; /* Unicode for checked checkbox icon */
+    color: #28a745; /* Change color for checked state */
+    border-color: #28a745; /* Change border color for checked state */
+    transform: scale(1.1); /* Add scale animation for checked state */
+  }
+  
+
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+      <a class="navbar-brand" href="/home">NovelNest</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"  href="/recommend">Recommend</a>
+          </li>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" style="padding-left: 900px; padding-right: 20px;" href="/profile"><i class="fa-solid fa-user fa-fade fa-xl"></i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket  fa-xl"></i></a>
+            </li>
+          </ul>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <h1 style="font-size: 50px;">Welcome to NovelNest</h1>
+    <p>Here is our top 50 collections.</p>
+  </div>
+
+
+  <section style="padding: 4%;">
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+      <!-- Card for each book -->
+      {% for i in range(book_name | length) %}
+      <div class="col">
+        <div class="card h-70 w-60">
+          <img src="{{ image[i] }}" class="card-img-top" alt="Book 1">
+          <div class="card-body">
+            <h5 class="card-title">{{ book_name[i] }}</h5>
+            <p class="card-text">{{ author[i] }}</p>
+            <div class="d-flex align-items-center">
+              <span class="badge rounded-pill bg-success me-2"><i class="fas fa-star me-1"></i>{{ rating[i] }}</span>
+              <span class="badge rounded-pill bg-primary"><i class="fas fa-thumbs-up me-1"></i> {{ votes[i] }}</span>
+            </div>
+            
+
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <form  method="post" action="{{ url_for('record_interaction') }}">
+                <input type="hidden" name="book_title" value="{{ book_name[i] }}">
+                <input type="hidden" name="book_author" value="{{ author[i] }}">
+                <input type="hidden" name="interaction_type" value="saved">
+                <button class="btn btn-primary save-btn" type="submit">Save</button>
+              </form>
+
+                                        
+              <!--<button class="btn btn-outline-primary like-btn" data-book-id="{{ book_id }}"><i class="far fa-heart"></i></button>-->             
+              <form method="post" action="{{ url_for('record_interaction') }}">
+                <input type="hidden" name="book_title" value="{{ book_name[i] }}">
+                <input type="hidden" name="interaction_type" value="rating">
+            
+                <!-- Button to open the dropdown -->
+                <div class="dropdown">
+                    <button class="btn btn-outline-primary like-btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        Rate
+                    </button>
+                    <div class="dropdown-menu">
+                        <!-- Add dropdown items for each rating value -->
+                        <button class="dropdown-item" type="submit" name="rating" value="1">1</button>
+                        <button class="dropdown-item" type="submit" name="rating" value="2">2</button>
+                        <button class="dropdown-item" type="submit" name="rating" value="3">3</button>
+                        <button class="dropdown-item" type="submit" name="rating" value="4">4</button>
+                        <button class="dropdown-item" type="submit" name="rating" value="5">5</button>
+                    </div>
+                </div>
+            </form>
+            
+            
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      {% endfor %}
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <!-- Include Bootstrap Icons for profile icon -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.16.0/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Include Bootstrap JS (optional, for responsive features) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Function to toggle the like status and update local storage
+    function toggleLike(bookId) {
+      const likedBooks = JSON.parse(localStorage.getItem('likedBooks')) || [];
+      const index = likedBooks.indexOf(bookId);
+  
+      if (index === -1) {
+        likedBooks.push(bookId);
+      } else {
+        likedBooks.splice(index, 1);
+      }
+  
+      localStorage.setItem('likedBooks', JSON.stringify(likedBooks));
+      updateLikeButtons();
+    }
+  
+    // Function to update like buttons based on local storage
+    function updateLikeButtons() {
+      const likedBooks = JSON.parse(localStorage.getItem('likedBooks')) || [];
+  
+      const likeButtons = document.querySelectorAll('.like-btn');
+      likeButtons.forEach(button => {
+        const bookId = button.getAttribute('data-book-id');
+        if (likedBooks.includes(bookId)) {
+          button.classList.add('liked');
+        } else {
+          button.classList.remove('liked');
+        }
+      });
+    }
+  
+    // Attach event listeners to like buttons
+    document.addEventListener('DOMContentLoaded', () => {
+      updateLikeButtons();
+  
+      const likeButtons = document.querySelectorAll('.like-btn');
+      likeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const bookId = button.getAttribute('data-book-id');
+          toggleLike(bookId);
+        });
+      });
+    });
+  </script>
+  
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+document.addEventListener('DOMContentLoaded', () => {
+  const stars = document.querySelectorAll('.star-rating .star');
+
+  stars.forEach(star => {
+    star.addEventListener('click', () => {
+      const rating = star.getAttribute('data-rating');
+      stars.forEach(s => s.classList.remove('active'));
+      star.classList.add('active');
+      document.querySelector('input[name="rating"]').value = rating;
+    });
+  });
+});
+-->
